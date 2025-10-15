@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0d0124;
 }
 
 @theme inline {
@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0d0124;
     --foreground: #ededed;
   }
 }
@@ -23,4 +23,32 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.MyContainer {
+  max-width: 1400px;
+  width: 80%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* 🎨 Custom Scrollbar ONLY for Left Section */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #c084fc;
+  box-shadow: 0 0 14px #c084fc;
+}
+
+/* 🟣 Optional Smooth Fade Glow (for premium feel) */
+.custom-scroll {
+  scrollbar-color: #a855f7 transparent;
+  scrollbar-width: thick;
+  scrollbar-gutter: stable both-edges;
 }
