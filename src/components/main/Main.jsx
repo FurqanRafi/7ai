@@ -12,7 +12,7 @@ import FAQS from "../faqs/FAQS";
 import Question from "../questionier/Question";
 import Pricing from "../pricing/Pricing";
 import Certification from "../certification/Certification";
-import Curiculim from "../curricullum/curiculim";
+import Curiculim from "../curricullum/Curiculim";
 
 const Main = () => {
   return (
