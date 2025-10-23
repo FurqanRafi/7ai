@@ -1,9 +1,12 @@
-import React from "react";
+
+"use client";
+import { AppContext } from "@/Context/AppContext";
+import React, { useContext } from "react";
 
 const Curiculim = () => {
-  const {curiculim} = useContext(AppContext);
+  const { curiculim } = useContext(AppContext);
   console.log(curiculim, "Curriculum");
-  
+
   // const curriculum = [
   //   { icon: "/ai.webp", title: "3 Weeks" },
   //   { icon: "/ai.webp", title: "6 Online Lessons" },
