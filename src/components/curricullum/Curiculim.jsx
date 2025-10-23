@@ -1,74 +1,77 @@
 import React from "react";
 
 const Curiculim = () => {
-  const curriculum = [
-    { icon: "/ai.webp", title: "3 Weeks" },
-    { icon: "/ai.webp", title: "6 Online Lessons" },
-    { icon: "/ai.webp", title: "Certificate of Completion" },
-  ];
-  const peragraphs = [
-    {
-      paragraph1:
-        "We have created a course program for the current needs of everyone who is interested in using artificial intelligence in marketing processes.",
-      paragraph2:
-        "You will have 3 intensive weeks of training and practice with the support of experienced specialists",
-    },
-  ];
-  const questions = [
-    {
-      question: "What is Generative Artificial Intelligence?",
-      answer: "Introduction. Core fundamentals of AI technology.",
-    },
-    {
-      question: " AI-Based Services ",
-      answer: [
-        "Explore robust AI-based solutions",
-        "Leverage advanced machine intelligence",
-        "Enhance daily operations with AI analytics",
-        "Implement synergy within teams for smooth results",
-      ],
-    },
-    {
-      question: " Writing Prompts for GPT Models",
-      answer: [
-        "Refine text with context",
-        "Provide structured detail to steer content",
-        "Focus clarity on desired outcomes",
-      ],
-    },
-    {
-      question: "Cases of Writing Prompts for GPT Models",
-      answer: [
-        "Tailor prompts for variety",
-        "Develop queries that spark unique responses",
-        "Refine approach to target goals",
-        "Practical part: Create your own specialized prompt",
-      ],
-    },
-    {
-      question: "Writing Prompts for Generating Images in Midjourney",
-      answer: [
-        "Shape visuals swiftly",
-        "Add clarity through details",
-        "Maximize style with precise cues daily",
-        "Combine color and theme skillfully",
-        "Practical part: Draft a custom Midjourney prompt",
-      ],
-    },
-    {
-      question: "Writing Prompts in Stable Diffusion",
-      answer: [
-        "Refine composition through precise guided steps",
-        "Elevate artistry effortlessly",
-        "Employ targeted keywords for clarit",
-        "Practical part: Construct your Stable Diffusion prompt",
-      ],
-    },
-    {
-      question: "Certification ",
-      answer: "Take the final test and secure your certificate!",
-    },
-  ];
+  const {curiculim} = useContext(AppContext);
+  console.log(curiculim, "Curriculum");
+  
+  // const curriculum = [
+  //   { icon: "/ai.webp", title: "3 Weeks" },
+  //   { icon: "/ai.webp", title: "6 Online Lessons" },
+  //   { icon: "/ai.webp", title: "Certificate of Completion" },
+  // ];
+  // const peragraphs = [
+  //   {
+  //     paragraph1:
+  //       "We have created a course program for the current needs of everyone who is interested in using artificial intelligence in marketing processes.",
+  //     paragraph2:
+  //       "You will have 3 intensive weeks of training and practice with the support of experienced specialists",
+  //   },
+  // ];
+  // const questions = [
+  //   {
+  //     question: "What is Generative Artificial Intelligence?",
+  //     answer: "Introduction. Core fundamentals of AI technology.",
+  //   },
+  //   {
+  //     question: " AI-Based Services ",
+  //     answer: [
+  //       "Explore robust AI-based solutions",
+  //       "Leverage advanced machine intelligence",
+  //       "Enhance daily operations with AI analytics",
+  //       "Implement synergy within teams for smooth results",
+  //     ],
+  //   },
+  //   {
+  //     question: " Writing Prompts for GPT Models",
+  //     answer: [
+  //       "Refine text with context",
+  //       "Provide structured detail to steer content",
+  //       "Focus clarity on desired outcomes",
+  //     ],
+  //   },
+  //   {
+  //     question: "Cases of Writing Prompts for GPT Models",
+  //     answer: [
+  //       "Tailor prompts for variety",
+  //       "Develop queries that spark unique responses",
+  //       "Refine approach to target goals",
+  //       "Practical part: Create your own specialized prompt",
+  //     ],
+  //   },
+  //   {
+  //     question: "Writing Prompts for Generating Images in Midjourney",
+  //     answer: [
+  //       "Shape visuals swiftly",
+  //       "Add clarity through details",
+  //       "Maximize style with precise cues daily",
+  //       "Combine color and theme skillfully",
+  //       "Practical part: Draft a custom Midjourney prompt",
+  //     ],
+  //   },
+  //   {
+  //     question: "Writing Prompts in Stable Diffusion",
+  //     answer: [
+  //       "Refine composition through precise guided steps",
+  //       "Elevate artistry effortlessly",
+  //       "Employ targeted keywords for clarit",
+  //       "Practical part: Construct your Stable Diffusion prompt",
+  //     ],
+  //   },
+  //   {
+  //     question: "Certification ",
+  //     answer: "Take the final test and secure your certificate!",
+  //   },
+  // ];
 
   return (
     <div className="MyContainer flex flex-col md:flex-row items-center gap-10 py-10 px-4 md:px-8 lg:px-16 text-white w-full max-w-7xl mx-auto">

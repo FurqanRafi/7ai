@@ -1,45 +1,14 @@
-import React from "react";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+"use client";
+
+import { AppContext } from "@/Context/AppContext";
+import React, { useContext } from "react";
 
 const Seniors = () => {
-  const seniors = [
-    {
-      img: "/Ethan.jpg",
-      name: "Ethan",
-      job: "Senior AI Engineer",
-      about:
-        "Forward-thinking entrepreneur leading cutting-edge machine learning ventures. His strategic insight helps businesses implement and scale AI solutions effortlessly.",
-      socials: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
-      },
-    },
-    {
-      img: "/Amelia.jpg",
-      name: "Amelia",
-      job: "Senior AI Engineer",
-      about:
-        "Forward-thinking entrepreneur leading cutting-edge machine learning ventures. Her strategic insight helps businesses implement and scale AI solutions effortlessly.",
-      socials: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
-      },
-    },
-    {
-      img: "/kam.jpg",
-      name: "Kamal",
-      job: "Senior AI Engineer",
-      about:
-        "Forward-thinking entrepreneur leading cutting-edge machine learning ventures. His strategic insight helps businesses implement and scale AI solutions effortlessly.",
-      socials: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
-      },
-    },
-  ];
+  const { seniors } = useContext(AppContext);
+
+  if (!seniors || !seniors.senior) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="MyContainer py-20">
@@ -49,49 +18,45 @@ const Seniors = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {seniors.map((senior, index) => (
+        {seniors.senior.map((senior, index) => (
           <div
             key={index}
             className="flex flex-col gap-4 group cursor-pointer transition-all"
           >
             <div className="relative overflow-hidden rounded-3xl">
+              {/* Senior Image */}
               <img
                 src={senior.img}
                 alt={senior.name}
-                className="w-full h-110 lg:h-100  object-cover rounded-3xl transform group-hover:scale-105 transition duration-500 ease-in-out"
+                className="w-full h-110 lg:h-100 object-cover rounded-3xl transform group-hover:scale-105 transition duration-500 ease-in-out"
               />
 
+              {/* Overlay for socials */}
               <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-purple-900/90 via-purple-900/50 to-transparent opacity-0 md:group-hover:opacity-100 transition-all duration-500 hidden md:block rounded-b-3xl"></div>
 
               <div
                 className="absolute bottom-4 left-4 flex gap-4 
-                              md:opacity-0 md:group-hover:opacity-100 
-                              transition-all duration-500"
+                          md:opacity-0 md:group-hover:opacity-100 
+                          transition-all duration-500"
               >
-                <a
-                  href={senior.socials.linkedin}
-                  className="text-white text-2xl hover:text-purple-300 transition"
-                >
-                  <FaLinkedin />
-                </a>
-                <a
-                  href={senior.socials.twitter}
-                  className="text-white text-2xl hover:text-purple-300 transition"
-                >
-                  <FaTwitter />
-                </a>
-                <a
-                  href={senior.socials.github}
-                  className="text-white text-2xl hover:text-purple-300 transition"
-                >
-                  <FaGithub />
-                </a>
+                {senior.social.map((s, idx) => (
+                  <a
+                    key={idx}
+                    href={s.link}
+                    className="text-white text-2xl hover:text-purple-300 transition"
+                  >
+                    <img src={s.icons} alt="social icon" className="w-6 h-6 brightness-0 invert" />
+                  </a>
+                ))}
               </div>
             </div>
 
+            {/* Name, Position, Description */}
             <h2 className="text-2xl font-semibold">{senior.name}</h2>
-            <p className="text-lg font-medium text-[#7853f0]">{senior.job}</p>
-            <p className="text-gray-400 text-lg ">{senior.about}</p>
+            <p className="text-lg font-medium text-[#7853f0]">
+              {senior.position}
+            </p>
+            <p className="text-gray-400 text-lg">{senior.desc}</p>
           </div>
         ))}
       </div>

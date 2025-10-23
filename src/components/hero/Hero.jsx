@@ -1,81 +1,166 @@
 "use client";
-import React, { useState } from "react";
+import { AppContext } from "@/Context/AppContext";
+import Link from "next/link";
+import React, { useContext } from "react";
 
 const HeroSection = () => {
-  const [heroData] = useState({
-    title: "Boost Your Business Productivity with AI Technologies",
-    subtitle:
-      "Stay ahead of industry trends by adopting cutting-edge AI technologies.",
-    buttonText: "Become AI Expert",
-    backgroundImage: "/heroimg.jpg",    
-    aiHeadImage: "/ai.webp", 
-    features: [
-      {
-        title: "Master the fundamentals of AI tools usage",
-      },
-      {
-        title: "Integrate AI technologies into your business",
-      },
-      {
-        title: "Automate routine tasks & enhance productivity",
-      },
-    ],
-  });
+  const { hero, loading } = useContext(AppContext);
+
+  if (loading || !hero) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-700 via-purple-900 to-black">
+        <div className="w-16 h-16 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="relative  min-h-screen w-full overflow-hidden bg-gradient-to-br from-pink-300 via-purple-500 to-purple-900">
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Background Image - Full colorful waves */}
       <div className="absolute inset-0">
         <img
-          src={heroData.backgroundImage}
+          src="/heroimg.jpg"
           alt="Background"
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/40 via-purple-600/40 to-purple-900/40"></div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f0124]/10 via-[#0f0124]/80 to-[#0f0124]"></div>
       </div>
 
-      <div className="relative MyContainer z-10 MyContainer mx-auto py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[calc(100vh-6rem)]">
-          <div className="text-white space-y-6 lg:space-y-8 order-2 lg:order-1">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold ">
-              {heroData.title}
-            </h1>
+      {/* Content Container */}
+      <div className="relative z-10 w-full min-h-screen flex flex-col justify-between py-12 lg:py-16">
+        {/* Main Hero Content */}
+        <div className="flex-1 MyContainer flex items-center">
+          <div className="max-w-7xl mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-start">
+              {/* Left Side - Text Content (wider) with fade animation */}
+              <div className="lg:col-span-7 space-y-6 lg:space-y-8">
+                <h1 className="text-5xl lg:text-6xl xl:text-7xl mt-32 leading-tight text-white animate-fade-in">
+                  {hero?.title || ""}
+                </h1>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-              <button className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl whitespace-nowrap">
-                {heroData.buttonText}
-              </button>
-              <p className="text-lg sm:text-xl text-white/90">
-                {heroData.subtitle}
-              </p>
-            </div>
+                <div className="flex items-center gap-4 animate-slide-up">
+                  <Link
+                    href={hero?.buttons?.btnLink || "#"}
+                    className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold text-base lg:text-lg px-6 py-3 lg:px-8 lg:py-4 rounded-full transition-all duration-300 shadow-lg whitespace-nowrap"
+                  >
+                    {hero?.buttons?.btnname || ""}
+                  </Link>
 
-            <div className="grid sm:grid-cols-3 gap-4 pt-8 lg:pt-12">
-              {heroData.features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="bg-purple-700/40 backdrop-blur-md rounded-2xl p-6 hover:bg-purple-600/50 transition-all duration-300 hover:scale-105 border border-purple-400/30"
-                >
-                  <p className="text-white font-medium leading-snug">
-                    {feature.title}
+                  <p className="text-base lg:text-2xl text-white/90 leading-relaxed pt-2">
+                    {hero?.description || ""}
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl">
-              <div className="relative">
+              {/* Right Side - AI Head Image with slide from right animation */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end lg:pt-28 animate-slide-right">
                 <img
-                  src={heroData.aiHeadImage}
-                  alt="AI Technology"
-                  className="w-full h-auto relative z-10 drop-shadow-2xl"
+                  src={hero?.heroimg}
+                  alt="AI Head"
+                  className="w-full max-w-xs lg:max-w-sm h-auto"
                 />
               </div>
             </div>
           </div>
         </div>
+
+        {/* Bottom Cards with slide up animation */}
+        <div className="inset-0 relative z-50 w-full h-full backdrop-blur-7xl -mt-2 animate-slide-up-delayed">
+          <div className="max-w-7xl mx-auto w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-2">
+              {hero?.icons?.map((icon, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-6 p-4 lg:p-5"
+                  style={{
+                    animation: `slideUpStagger 0.8s ease-out ${
+                      index * 0.2
+                    }s both`,
+                  }}
+                >
+                  {/* Icon Square */}
+                  <div className="flex-shrink-0 w-15 h-15 lg:w-20 lg:h-20 bg-purple-600 rounded-2xl flex items-center justify-center">
+                    {icon.iconimg && (
+                      <img
+                        src={icon.iconimg}
+                        alt="Icon"
+                        className="w-7 h-7 lg:w-13 lg:h-13 object-contain brightness-0 invert"
+                      />
+                    )}
+                  </div>
+
+                  {/* Text */}
+                  <p className="text-white text-sm lg:text-2xl font-medium leading-snug">
+                    {icon.iconDescription}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideRight {
+          from {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideUpStagger {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 2s ease-out;
+        }
+
+        .animate-slide-right {
+          animation: slideRight 1s ease-out;
+        }
+
+        .animate-slide-up {
+          animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .animate-slide-up-delayed {
+          animation: slideUp 1s ease-out 0.2s both;
+        }
+      `}</style>
     </div>
   );
 };

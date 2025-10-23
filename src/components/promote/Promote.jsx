@@ -1,41 +1,16 @@
-import React from "react";
-import {
-  FaRocket,
-  FaChartBar,
-  FaTasks,
-  FaBriefcase,
-  FaLaptopCode,
-  FaSmile,
-} from "react-icons/fa";    
+"use client";
 
-const items = [
-  {
-    icon: <FaRocket />,
-    text: "Have an interest in AI technology but don’t know where to start",
-  },
-  {
-    icon: <FaChartBar />,
-    text: "Are a business owner aiming to enhance productivity",
-  },
-  {
-    icon: <FaTasks />,
-    text: "Are looking to automate routine tasks to focus on strategic initiatives",
-  },
-  {
-    icon: <FaLaptopCode />,
-    text: "Want to stay ahead in your career by learning cutting-edge technology",
-  },
-  {
-    icon: <FaBriefcase />,
-    text: "Work in a sector that could benefit from AI integration",
-  },
-  {
-    icon: <FaSmile />,
-    text: "Seek to improve customer engagement and satisfaction",
-  },
-];
+import { AppContext } from "@/Context/AppContext";
+import React, { useContext } from "react";
 
 const Promote = () => {
+  const { promote } = useContext(AppContext);
+  console.log(promote, "Promote");
+
+  if (!promote || !promote.icon) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="MyContainer mt-20 py-16">
       <div className="flex flex-col items-start gap-10">
@@ -48,15 +23,24 @@ const Promote = () => {
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-10">
-          {items.map((item, index) => (
+          {promote.icon.map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-7  p-3 rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+              className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-2 lg:gap-5 md:gap-5 lg:py-5 md:py-3  rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             >
-              <div className="text-white text-3xl bg-[#7853f0] p-3 rounded-lg">
-                {item.icon}
+              {/* Icon Image */}
+              <div className="w-15 h-15 sm:w-20 sm:h-20 flex-shrink-0 flex items-center justify-center bg-[#7853f0] p-3 rounded-lg">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-full object-contain brightness-0 invert"
+                />
               </div>
-              <p className="text-white text-xl leading-relaxed">{item.text}</p>
+
+              {/* Title */}
+              <p className="text-white text-lg sm:text-xl font-medium leading-relaxed mt-2 sm:mt-0">
+                {item.title}
+              </p>
             </div>
           ))}
         </div>
