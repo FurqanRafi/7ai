@@ -1,51 +1,92 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "@/Context/AppContext";
 
 const Instructors = () => {
   const { instructor } = useContext(AppContext);
-  console.log(instructor, "instructor");
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // 🔹 Detect when section is visible in viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   if (!instructor) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="MyContainer flex flex-col lg:flex-row items-center justify-between gap-10 py-20 lg:py-40">
-      {/* LEFT TEXT SECTION */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-5 ">
-        <h2 className="text-2xl lg:text-xl tracking-wide text-[#b7a8ff]">
-          {instructor.uptitle}
-        </h2>
+    <div
+      ref={sectionRef}
+      className="relative overflow-hidden bg-transparent transition-all duration-700"
+    >
+      {/* 🔹 Main Content */}
+      <div className="MyContainer flex flex-col lg:flex-row items-center justify-between gap-10 py-20 lg:py-40 text-white">
+        {/* LEFT TEXT SECTION */}
+        <div className="w-full lg:w-1/2 flex flex-col gap-5">
+          <h2 className="text-2xl lg:text-xl tracking-wide text-[#b7a8ff]">
+            {instructor.uptitle}
+          </h2>
 
-        <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-          {instructor.title}
-        </h1>
+          <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+            {instructor.title}
+          </h1>
 
-        <p className="text-gray-300 text-xl font-light leading-relaxed">
-          {instructor.description}
-        </p>
+          <p className="text-gray-200 text-xl font-light leading-relaxed">
+            {instructor.description}
+          </p>
 
-        <a href={instructor.btnLink}>
-          <button className="px-8 py-3 w-fit rounded-full bg-gradient-to-r from-[#8d4bff] to-[#6235e8] text-white font-medium shadow-[0_0_25px_rgba(120,61,255,0.5)] hover:shadow-[0_0_35px_rgba(120,61,255,0.7)] hover:scale-105 transition-all duration-300">
-            {instructor.btnname}
-          </button>
-        </a>
-      </div>
+          <a href={instructor.btnLink}>
+            <button className="px-8 py-3 w-fit rounded-full bg-gradient-to-r from-[#8d4bff] to-[#6235e8] text-white font-medium shadow-[0_0_25px_rgba(120,61,255,0.5)] hover:shadow-[0_0_35px_rgba(120,61,255,0.7)] hover:scale-105 transition-all duration-300">
+              {instructor.btnname}
+            </button>
+          </a>
+        </div>
 
-      {/* RIGHT IMAGE SECTION */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center relative mt-10 lg:mt-0">
-        {/* 👇 is blur wali div ko remove kar diya */}
-        {/* <div className="absolute w-[280px] h-[280px] lg:w-[420px] lg:h-[420px] bg-[#7b3efc] blur-[180px] opacity-30 rounded-full -z-10"></div> */}
-
-        <div className="w-64 h-64 lg:w-96 lg:h-96 object-contain drop-shadow-[0_0_40px_rgba(155,131,245,0.5)] hover:scale-105 transition-transform duration-500">
-          <img
-            src={instructor.img}
-            alt="Instructor"
-            className="w-full h-full object-cover rounded-full "
-          />
+        {/* RIGHT IMAGE SECTION */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center relative mt-10 lg:mt-0">
+          <div
+            className={`w-64 h-64 lg:w-96 lg:h-96 rounded-full transition-all duration-700 ${
+              isVisible
+                ? "animate-[glow_3s_ease-in-out_infinite] scale-105"
+                : "opacity-70 scale-100"
+            }`}
+            style={{
+              filter: isVisible
+                ? "drop-shadow(0 0 60px rgba(155,131,245,0.8))"
+                : "drop-shadow(0 0 20px rgba(155,131,245,0.3))",
+            }}
+          >
+            <img
+              src={instructor.img}
+              alt="Instructor"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
         </div>
       </div>
+
+      {/* 🔹 Inline Keyframes for Glow Animation */}
+      <style jsx>{`
+        @keyframes glow {
+          0% {
+            filter: drop-shadow(0 0 30px rgba(155, 131, 245, 0.6));
+          }
+          50% {
+            filter: drop-shadow(0 0 50px rgba(155, 131, 245, 1));
+          }
+        }
+      `}</style>
     </div>
   );
 };
