@@ -12,7 +12,7 @@ const Instructors = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
-        if (entry.isIntersecting) setIsVisible(true);
+        setIsVisible(entry.isIntersecting);
       },
       { threshold: 0.3 }
     );
@@ -56,15 +56,13 @@ const Instructors = () => {
         {/* RIGHT IMAGE SECTION */}
         <div className="w-full lg:w-1/2 flex items-center justify-center relative mt-10 lg:mt-0">
           <div
-            className={`w-64 h-64 lg:w-96 lg:h-96 rounded-full transition-all duration-700 ${
-              isVisible
-                ? "animate-[glow_3s_ease-in-out_infinite] scale-105"
-                : "opacity-70 scale-100"
+            className={`w-64 h-64 lg:w-96 lg:h-96 rounded-full transition-all duration-[1500ms] ease-out ${
+              isVisible ? "scale-105 opacity-100" : "scale-95 opacity-60"
             }`}
             style={{
               filter: isVisible
-                ? "drop-shadow(0 0 60px rgba(155,131,245,0.8))"
-                : "drop-shadow(0 0 20px rgba(155,131,245,0.3))",
+                ? "drop-shadow(0 0 70px rgba(155,131,245,0.9))"
+                : "drop-shadow(0 0 0 rgba(0,0,0,0))",
             }}
           >
             <img
@@ -75,18 +73,6 @@ const Instructors = () => {
           </div>
         </div>
       </div>
-
-      {/* 🔹 Inline Keyframes for Glow Animation */}
-      <style jsx>{`
-        @keyframes glow {
-          0% {
-            filter: drop-shadow(0 0 30px rgba(155, 131, 245, 0.6));
-          }
-          50% {
-            filter: drop-shadow(0 0 50px rgba(155, 131, 245, 1));
-          }
-        }
-      `}</style>
     </div>
   );
 };
