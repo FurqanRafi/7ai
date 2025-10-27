@@ -39,15 +39,16 @@ const HeroSection = () => {
                   {hero?.title || ""}
                 </h1>
 
-                <div className="flex items-center gap-4 animate-slide-up">
+                {/* Button and Description - Column on Mobile, Row on Medium+ */}
+                <div className="flex flex-col md:flex-row md:items-center gap-4 animate-slide-up">
                   <Link
                     href={hero?.buttons?.btnLink || "#"}
-                    className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold text-base lg:text-lg px-6 py-3 lg:px-8 lg:py-4 rounded-full transition-all duration-300 shadow-lg whitespace-nowrap"
+                    className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold text-base lg:text-lg px-6 py-3 lg:px-8 lg:py-4 rounded-full transition-all duration-300 shadow-lg whitespace-nowrap w-fit"
                   >
                     {hero?.buttons?.btnname || ""}
                   </Link>
 
-                  <p className="text-base lg:text-2xl text-white/90 leading-relaxed pt-2">
+                  <p className="text-base md:text-lg lg:text-2xl text-white/90 leading-relaxed md:pt-2">
                     {hero?.description || ""}
                   </p>
                 </div>

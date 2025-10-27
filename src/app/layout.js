@@ -3,6 +3,9 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import { AppContextProvider } from "@/Context/AppContext";
+import Loader from "@/components/loader"
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +29,8 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppContextProvider>
+          <Loader />
+          
           <Header />
           {children}
           <Footer />

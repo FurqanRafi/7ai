@@ -1,229 +1,253 @@
-import React from "react";
-import { Search, Facebook, Youtube, Instagram } from "lucide-react";
-
-// ✅ Dynamic Data
-const socialLinks = [
-  { icon: <Facebook className="w-4 h-4" />, href: "#" },
-  { icon: <Youtube className="w-4 h-4" />, href: "#" },
-  {
-    icon: (
-      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-    href: "#",
-  },
-  { icon: <Instagram className="w-4 h-4" />, href: "#" },
-];
-
-const contactLinks = [
-  {
-    label: "1-800-123-4567",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-        />
-      </svg>
-    ),
-    href: "tel:1-800-123-4567",
-  },
-  {
-    label: "support@yourcourse.com",
-    icon: (
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-        />
-      </svg>
-    ),
-    href: "mailto:support@yourcourse.com",
-  },
-];
-
-const quickLinks = [
-  "About Course",
-  "Pricing Plans",
-  "News & Articles",
-  "Design System",
-];
-
-const policyLinks = [
-  "Terms & Conditions",
-  "Cookie Policy",
-  "Maintenance Page",
-  "404 Error Page",
-];
+"use client";
+import React, { useContext } from "react";
+import { AppContext } from "@/Context/AppContext";
+import { Search, Facebook, Youtube, Twitter, Instagram } from "lucide-react";
 
 export default function Footer() {
+  const { footer, loading } = useContext(AppContext);
+
+  if (loading)
+    return (
+      <div className="text-center py-10 text-white bg-[#0f0124]">
+        Loading Footer...
+      </div>
+    );
+
+  const footerData = Array.isArray(footer) ? footer[0] : footer || {};
+
+  if (!footerData || Object.keys(footerData).length === 0)
+    return (
+      <div className="text-center py-10 text-red-400 bg-[#0f0124]">
+        ⚠️ No footer data found. Please check your AppContext or API.
+      </div>
+    );
+
+  const {
+    logo = "",
+    desc = "",
+    Social = [],
+    contact = [],
+    links = [],
+    sideLinks = [],
+  } = footerData;
+
+  const handleSubscribe = () => {
+    alert("Subscribed successfully!");
+  };
+
   return (
-    <div className=" flex flex-col justify-end">
-      <footer className="relative text-white bg-gradient-to-b from-[#130033] via-[#25004d] to-[#25004d] overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="w-full h-full bg-gradient-to-r from-purple-600/20 via-pink-500/10 to-indigo-500/20 blur-[500px] opacity-30 rounded-xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-8 py-16 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30">
-                  <div className="w-6 h-6 border-2 border-white rounded-full relative">
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full"></div>
-                  </div>
+    <footer className="bg-[#240e5c] bg-gradient-to-t from-[#0f0124]/10 via-[#0f0124]/20 to-[#0f0124] z-30 text-white pt-20 pb-8 relative overflow-hidden">
+     
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Main Grid - 3 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-16">
+          
+          {/* 1️⃣ Left Column - Company Info */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              {logo ? (
+                <img src={logo} alt="Logo" className="w-60  object-contain" />
+              ) : (
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                  <div className="w-6 h-6 border-4 border-white rounded-full"></div>
                 </div>
-                <span className="text-2xl font-bold">Seven AI</span>
-              </div>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Stay ahead of industry trends by adopting cutting-edge AI
-                technologies.
-              </p>
+              )}
 
-              <div className="flex gap-3">
-                {socialLinks.map((item, index) => (
-                  <a
-                    key={index}
-                    href={item.href}
-                    className="w-10 h-10 rounded-full border border-gray-600 hover:border-purple-500 flex items-center justify-center transition-all duration-300 hover:bg-purple-500/10"
-                  >
-                    {item.icon}
-                  </a>
-                ))}
-              </div>
-
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full bg-indigo-900/50 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                />
-              </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="space-y-4">
-                {contactLinks.map((item, index) => (
-                  <a
-                    key={index}
-                    href={item.href}
-                    className="flex items-center gap-3 text-gray-300 hover:text-purple-400 transition-colors group"
+            <p className="text-gray-400 text-base leading-relaxed max-w-xs">
+              {desc ||
+                "Stay ahead of industry trends by adopting cutting-edge AI technologies."}
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-4">
+              {Social.length > 0 ? (
+                Social.map((s, i) => (
+                  <a 
+                    key={i} 
+                    href={s.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all"
                   >
-                    <div className="w-5 h-5 flex items-center justify-center">
-                      {item.icon}
-                    </div>
-                    <span className="text-sm">{item.label}</span>
+                    <img
+                      src={s.icon}
+                      alt="social"
+                      className="w-5 h-5 brightness-0 invert"
+                    />
                   </a>
-                ))}
-              </div>
-              <div className="space-y-3 pt-4">
-                {quickLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="block text-gray-300 hover:text-purple-400 transition-colors text-sm"
-                  >
-                    {link}
+                ))
+              ) : (
+                <>
+                  <a href="#" className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                    <Facebook className="w-5 h-5" />
                   </a>
-                ))}
-              </div>
+                  <a href="#" className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                    <Youtube className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                    <Twitter className="w-5 h-5" />
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:border-purple-500 hover:bg-purple-500/10 transition-all">
+                    <Instagram className="w-5 h-5" />
+                  </a>
+                </>
+              )}
             </div>
 
-            <div className="space-y-3">
-              {policyLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="block text-gray-300 hover:text-purple-400 transition-colors text-sm"
-                >
-                  {link}
-                </a>
-              ))}
-            </div>
-
+            {/* Search Box */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden backdrop-blur-md">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl"></div>
-                <div className="relative z-10">
-                  <h3 className="text-lg font-semibold mb-3">
-                    Newsletter Signup
-                  </h3>
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                    Sign up to our newsletter and receive a{" "}
-                    <span className="text-purple-400 font-semibold">
-                      10% discount
-                    </span>{" "}
-                    on the course fee!
-                  </p>
-                  <button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50">
-                    Sign Up Now
-                  </button>
-                </div>
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="bg-[#1a1340] w-full py-3 pl-12 pr-4 rounded-lg text-base text-gray-300 placeholder-gray-500 border border-gray-800 focus:outline-none focus:border-purple-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* 2️⃣ Middle Column - Contact & Links */}
+          <div className="space-y-8">
+            {/* Contact Info */}
+            <div>
+              <div className="space-y-4">
+                {contact?.length > 0 ? (
+                  contact.map((item, i) => (
+                    <a
+                      key={i}
+                      href={item.link || "#"}
+                      className="flex items-center gap-3 text-gray-300 hover:text-purple-400 text-base group transition-colors"
+                    >
+                      {item.icon && (
+                        <img
+                          src={item.icon}
+                          alt="contact"
+                          className="w-9 h-9 object-contain"
+                        />
+                      )}
+                      <span className="text-xl">{item.text}</span>
+                    </a>
+                  ))
+                ) : (
+                  <>
+                    <a href="tel:1-800-123-4567" className="flex items-center gap-3 text-gray-300 hover:text-purple-400 text-base transition-colors">
+                      <span>📞</span>
+                      <span>1-800-123-4567</span>
+                    </a>
+                    <a href="mailto:support@yourcourse.com" className="flex items-center gap-3 text-gray-300 hover:text-purple-400 text-base transition-colors">
+                      <span>✉️</span>
+                      <span>support@yourcourse.com</span>
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Links Columns */}
+            <div className="grid grid-cols-2 gap-8 pt-4">
+              <div>
+                <ul className="space-y-3">
+                  {links.length > 0 ? (
+                    links.map((item, i) => (
+                      <li key={i}>
+                        <a
+                          href={item.links || "#"}
+                          className="text-gray-400 hover:text-white text-base transition-colors"
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    <>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">About Course</a></li>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">Pricing Plans</a></li>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">News & Articles</a></li>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">Design System</a></li>
+                    </>
+                  )}
+                </ul>
               </div>
 
-              <div className="absolute -top-3 -right-3 bg-gradient-to-br from-emerald-400 to-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                71
-                <br />
-                DEMOS
+              <div>
+                <ul className="space-y-3">
+                  {sideLinks.length > 0 ? (
+                    sideLinks.map((item, i) => (
+                      <li key={i}>
+                        <a
+                          href={item.link || "#"}
+                          className="text-gray-400 hover:text-white text-base transition-colors"
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    <>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">Terms & Conditions</a></li>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">Cookie Policy</a></li>
+                      <li><a href="#" className="text-gray-400 hover:text-white text-base transition-colors">Maintenance Page</a></li>
+                      <li><a href="#" className="text-blue-400 hover:text-blue-300 text-base transition-colors">404 Error Page</a></li>
+                    </>
+                  )}
+                </ul>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-700/50 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-              <p>© Copyright 2025 | All Rights Reserved</p>
-              <p>
-                Powered by{" "}
-                <a
-                  href="#"
-                  className="text-purple-400 hover:text-purple-300 transition-colors"
-                >
-                  The7 Theme
-                </a>{" "}
-                from{" "}
-                <a
-                  href="#"
-                  className="text-purple-400 hover:text-purple-300 transition-colors"
-                >
-                  Dream-Theme
-                </a>
+          {/* 3️⃣ Right Column - Newsletter */}
+          <div className="relative">
+          
+            
+
+            <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/20 border border-purple-800/50 rounded-2xl p-8 backdrop-blur-sm relative z-10">
+              <div className="absolute top-4 right-4 bg-gradient-to-br from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                72 DEMOS
+              </div>
+
+              <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+                Newsletter Signup
+              </h3>
+              
+              <p className="text-gray-400 text-base mb-6 leading-relaxed">
+                Sign up to our newsletter and receive a 10% discount on the course fee!
               </p>
+
+              <button
+                onClick={handleSubscribe}
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 px-6 py-3 rounded-lg text-base font-semibold shadow-lg shadow-purple-500/30 transition-all transform hover:scale-105"
+              >
+                Sign Up Now
+              </button>
             </div>
           </div>
         </div>
 
-        <button className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110">
-          <svg
-            className="w-5 h-5 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
-        </button>
-      </footer>
-    </div>
+        {/* Footer Bottom */}
+        <div className="border-t border-gray-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <p>© Copyright {new Date().getFullYear()} | All Rights Reserved</p>
+            <p>
+              Powered by{" "}
+              <a
+                href="#"
+                className="text-purple-400 hover:text-purple-300 transition-colors"
+              >
+                The7 Theme
+              </a>
+              {" "}from{" "}
+              <a
+                href="#"
+                className="text-purple-400 hover:text-purple-300 transition-colors"
+              >
+                Dream-Theme
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }

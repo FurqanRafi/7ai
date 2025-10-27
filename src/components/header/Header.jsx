@@ -1,29 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "@/Context/AppContext";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
+  const { navbar, loading } = useContext(AppContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navLinks = [
-    { id: 1, name: "Home", href: "/" },
-    { id: 2, name: "About", href: "/about" },
-    { id: 3, name: "Instructors", href: "/instructors" },
-    { id: 4, name: "Program", href: "/program" },
-    { id: 5, name: "FAQS", href: "/faqs" },
-    { id: 6, name: "Contact", href: "/contact" },
-    { id: 7, name: "News & Articles", href: "/news" },
-  ];
+  // Loading state
+  if (loading) {
+    return (
+      <header className="w-full fixed top-0 left-0 z-30 flex items-center justify-center py-4 px-3">
+        <div className="max-w-7xl w-full bg-gradient-to-t from-[#ffffff] to-[#c3b3f7] flex items-center justify-center rounded-full backdrop-blur-sm shadow-md px-6 h-14 py-9">
+          <span className="text-[#7853f0] font-medium">Loading...</span>
+        </div>
+      </header>
+    );
+  }
 
+  // Extract navbar data from backend schema
   const logo = {
-    src: "/logo7ai.svg",
+    src: navbar?.logo || "/logo7ai.svg",
     alt: "Logo",
   };
 
+  const navLinks = navbar?.menu || [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/about" },
+    { name: "Instructors", link: "/instructors" },
+    { name: "Program", link: "/program" },
+    { name: "FAQS", link: "/faqs" },
+    { name: "Contact", link: "/contact" },
+    { name: "News & Articles", link: "/news" },
+  ];
+
   const ctaButton = {
-    text: "Enroll Now",
-    href: "#",
+    text: navbar?.button?.btnname || "Enroll Now",
+    href: navbar?.button?.btnLink || "#",
   };
 
   const toggleMenu = () => {
@@ -48,7 +62,7 @@ const Header = () => {
       >
         <div className="flex flex-col h-full">
           {/* Menu Header */}
-          <div className="flex items-center justify-between p-6 ">
+          <div className="flex items-center justify-between p-6">
             <img src={logo.src} alt={logo.alt} className="h-8 object-contain" />
             <button
               onClick={toggleMenu}
@@ -60,11 +74,11 @@ const Header = () => {
 
           {/* Menu Links */}
           <nav className="flex flex-col p-6 space-y-4 flex-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, index) => (
               <a
-                key={link.id}
-                href={link.href}
-                className="text-[#0f0124] text-lg font-medium hover:text-[#7853f0] transition-colors duration-200 py-2 "
+                key={index}
+                href={link.link || "#"}
+                className="text-[#0f0124] text-lg font-medium hover:text-[#7853f0] transition-colors duration-200 py-2"
                 onClick={toggleMenu}
               >
                 {link.name}
@@ -73,7 +87,7 @@ const Header = () => {
           </nav>
 
           {/* Menu Footer with CTA */}
-          <div className="p-6 ">
+          <div className="p-6">
             <a href={ctaButton.href} className="block">
               <button className="w-full bg-[#7853f0] text-white px-6 py-3 rounded-full uppercase font-medium tracking-wider hover:bg-[#6442d9] transition-all duration-200 text-sm">
                 {ctaButton.text}
@@ -95,10 +109,10 @@ const Header = () => {
           </a>
 
           <nav className="hidden xl:flex gap-6 lg:gap-8 text-sm xl:text-lg tracking-wide">
-            {navLinks.map((link) => (
+            {navLinks.map((link, index) => (
               <a
-                key={link.id}
-                href={link.href}
+                key={index}
+                href={link.link || "#"}
                 className="hover:text-[#7853f0] text-[#0f0124] transition-colors duration-200"
               >
                 {link.name}

@@ -47,7 +47,7 @@ const Skill = () => {
                 {/* Texts */}
                 <div className="flex flex-col sm:flex-row sm:items-center w-full gap-1 sm:gap-4">
                   {/* Title */}
-                  <h2 className="text-lg md:text-xl lg:text-2xl font-light text-[#0f0124] w-full sm:w-auto">
+                  <h2 className="text-lg md:text-xl lg:text-2xl font-light text-[#0f0124] sm:w-auto">
                     {items.title}
                   </h2>
 

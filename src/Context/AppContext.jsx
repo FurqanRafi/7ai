@@ -112,9 +112,11 @@ export const AppContextProvider = ({ children }) => {
       setCuriculim(data9[0]);
       setCertificate(data10[0]);
       setPricing(data11[0]);
-      setFaqs(data12[0]);
+      setFaqs(Array.isArray(data12) ? data12 : []);
+
       setQuestion(data13[0]);
       setFooter(data14[0]);
+     
       setHero(data15[0]);
       setProductivity(data16[0]);
     } catch (error) {
