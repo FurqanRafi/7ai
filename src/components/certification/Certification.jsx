@@ -28,7 +28,7 @@ const Certification = () => {
           <h1 className="text-4xl md:text-4xl lg:text-6xl font-light leading-none mb-4">
             <span className="text-[#7b3efc]">Certificate</span> of Completion
           </h1>
-          <p className="text-lg md:text-xl lg:text-xl text-white/50 leading-8">
+          <p className="text-lg text-start md:text-xl lg:text-xl text-white/50 leading-8">
             {certificate.paragraph}
           </p>
         </div>
