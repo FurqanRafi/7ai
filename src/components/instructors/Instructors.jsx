@@ -1,12 +1,10 @@
-
 "use client";
 import React, { useContext } from "react";
 import { AppContext } from "@/Context/AppContext";
 
 const Instructors = () => {
   const { instructor } = useContext(AppContext);
-  console.log(instructor ,"instructor");
-  
+  console.log(instructor, "instructor");
 
   if (!instructor) {
     return <div>Loading...</div>;
@@ -40,11 +38,11 @@ const Instructors = () => {
         {/* 👇 is blur wali div ko remove kar diya */}
         {/* <div className="absolute w-[280px] h-[280px] lg:w-[420px] lg:h-[420px] bg-[#7b3efc] blur-[180px] opacity-30 rounded-full -z-10"></div> */}
 
-        <div className="w-64 h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-[0_0_60px_rgba(123,62,252,0.4)]">
+        <div className="w-64 h-64 lg:w-96 lg:h-96 object-contain drop-shadow-[0_0_40px_rgba(155,131,245,0.5)] hover:scale-105 transition-transform duration-500">
           <img
             src={instructor.img}
             alt="Instructor"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-full "
           />
         </div>
       </div>
